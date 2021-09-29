@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BackendController;
+use App\Http\Controllers\WebCarouselController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -13,7 +15,7 @@ use Inertia\Inertia;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -27,3 +29,7 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/carouselpage', [BackendController::class, 'toCarouselPage'])->name('toCarouselPage');
+
+Route::middleware(['auth:sanctum', 'verified'])->resource('webcarousels', WebCarouselController::class);
